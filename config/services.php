@@ -31,4 +31,12 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'bank_one' => [
+        'token' => env('BANK_ONE_AUTH_TOKEN'),
+        'api_version' => env('BANK_ONE_API_VERSION'),
+        'product_code' => env('BANK_ONE_PRODUCT_CODE'),
+        'account_officer_code' => env('ACCOUNT_OFFICER_CODE'),
+        'mfb_code' => env('BANK_ONE_CODE'),
+    ]
+
 ];
