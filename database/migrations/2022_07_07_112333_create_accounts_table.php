@@ -20,8 +20,9 @@ return new class extends Migration
             $table->string('account_number');
             $table->string('bankone_account_number');
             $table->string('customer_id');
-            $table->decimal('available_balance')->default(0);
-            $table->decimal('withdrawable_balance')->default(0);
+            $table->unsignedBigInteger('available_balance')->default(0);
+            $table->unsignedBigInteger('ledger_balance')->default(0);
+            $table->unsignedBigInteger('withdrawable_balance')->default(0);
             $table->string('account_officer_code');
             $table->tinyInteger('account_tier');
             $table->timestamps();
