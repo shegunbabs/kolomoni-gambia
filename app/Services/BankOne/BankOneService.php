@@ -48,7 +48,7 @@ class BankOneService
     }
 
 
-    public function balanceEnquiry(string $customerID) {
+    public function balanceEnquiry(string $customerID): array {
         return $this->getAccountByCustomerId($customerID);
     }
 
@@ -61,9 +61,11 @@ class BankOneService
 
 
     /**
-     * @param array $payload array<string string> ['accountNumber' => <string>, 'computewithdrawableBalance' => <bool>]
+     * @param string $accountNumber
+     * @return array
      */
-    public function getAccountByAccountNumber(array $payload): array {
+    public function getAccountByAccountNumber(string $accountNumber): array {
+        $payload = ['accountNumber' => $accountNumber, 'computewithdrawableBalance' => "true"];
         try {
             $url = $this->buildUrl(self::GET_ACCOUNT_BY_ACCOUNT_NUMBER);
             return $this->get($url, $payload);
