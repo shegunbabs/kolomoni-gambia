@@ -213,7 +213,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
-
+        'BankOne' => App\Services\BankOne\BankOneFacade::class,
     ])->toArray(),
 
 ];

@@ -11,6 +11,6 @@ class BankOneFacade extends Facade
 
     protected static function getFacadeAccessor()
     {
-        return BankOneService::class;
+        return 'BankOne';
     }
 }

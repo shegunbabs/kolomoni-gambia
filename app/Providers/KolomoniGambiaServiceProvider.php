@@ -14,7 +14,7 @@ class KolomoniGambiaServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(BankOneService::class, fn($app) => new BankOneService());
+        $this->app->singleton('BankOne', fn($app) => new BankOneService());
     }
 
     /**
