@@ -10,16 +10,18 @@ use Illuminate\Support\Facades\Http;
 class BankOneService
 {
 
-    private const BASE_URL = 'https://api.mybankone.com/BankOneWebAPI/api';
+    private const HOST_URL = 'https://api.mybankone.com';
+    private const BASE_URL = self::HOST_URL . '/BankOneWebAPI/api';
     //private const BASE_URL = 'http://52.168.85.231/BankOneWebAPI';
 
     private const CREATE_ACCOUNT = '/Account/CreateAccountQuick/2';
     private const CLOSE_ACCOUNT = '/Account/CloseAccount/2';
-    private const DO_FUNDS_TRANSFER = '/Account/DoFundsTransfer/2';
     private const GET_ACCOUNT_BY_ACCOUNT_NUMBER = '/Account/GetAccountByAccountNumber/2';
     private const GET_ACCOUNT_BY_CUSTOMER_ID = '/Account/GetActiveSavingsAccountsByCustomerID/2';
     private const DO_NAME_ENQUIRY = '/Account/DoNameEnquiry/2';
     private const GET_TRANSACTIONS = '/Account/GetTransactions/2';
+
+    private const INTRA_BANK_TRANSFER = '/thirdpartyapiservice/apiservice/CoreTransactions/LocalFundsTransfer';
 
 
     public function __construct(){}
@@ -44,8 +46,11 @@ class BankOneService
 
     public function doNameEnquiry($accountNumber): array {
         $url = $this->buildUrl(self::DO_NAME_ENQUIRY);
-        $url = sprintf('%s&accountNumber=%s&institutionCode=%s', $url, $accountNumber, config('services.bank_one.mfb_code'));
-        return $this->post($url, );
+        $url = sprintf(
+            '%s&accountNumber=%s&institutionCode=%s',
+            $url, $accountNumber, config('services.bank_one.mfb_code')
+        );
+        return $this->post($url);
     }
 
 
@@ -88,7 +93,6 @@ class BankOneService
     protected function get(string $url, $params = null): array {
         $url = $params ? $url. '&' .http_build_query($params) : $url;
         $res = Http::get($url);
-        dump($res->json(), $res->body());
         return $this->response($res);
     }
 
@@ -130,8 +134,8 @@ class BankOneService
     }
 
 
-    public function fundsTransfer(array $payload): array {
-        $url = $this->buildUrl(self::DO_FUNDS_TRANSFER);
+    public function doIntraAccountTransfer(array $payload): array {
+        $url = self::HOST_URL.self::INTRA_BANK_TRANSFER;
         return $this->post($url, $payload);
     }
 }
