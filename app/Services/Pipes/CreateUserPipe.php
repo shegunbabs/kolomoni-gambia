@@ -24,7 +24,7 @@ class CreateUserPipe
             'email_verified_at' => now(),
         ]);
         $user->devices()->create([
-            'serial' => ['device_serial'],
+            'serial' => $data['device_serial'],
             'pin' => encrypt($data['device_pin'])
         ]);
 
