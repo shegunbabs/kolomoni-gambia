@@ -38,7 +38,8 @@ class LoginController
         }
 
         //new device
-        //send otp
+        //send
+
         $out['device'] = ['This device needs to be registered'];
         return ApiResponse::failed('New device detected', $out, 'errors');
     }
