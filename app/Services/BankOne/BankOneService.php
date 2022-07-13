@@ -108,13 +108,10 @@ class BankOneService
     }
 
 
-    private function buildUrl($path): string
-    {
+    private function buildUrl($path): string {
         return sprintf(
             '%s%s?authtoken=%s',
-            self::BASE_URL,
-            $path,
-            config('services.bank_one.token')
+            self::BASE_URL, $path, config('services.bank_one.token')
         );
     }
 
