@@ -35,6 +35,9 @@ class CreateBankOneAccountPipe
             'account_tier' => 1,
         ]);
 
-        return ApiResponse::success('Account created successfully', new UserResource($user));
+        $out['user'] = new UserResource($user);
+        $out['token'] = $data['token'];
+
+        return ApiResponse::success('Account created successfully', $out);
     }
 }
