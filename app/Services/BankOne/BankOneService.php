@@ -25,7 +25,8 @@ class BankOneService
     public function __construct(){}
 
 
-    public function getTransactions(string $accountNumber, string $fromDate, $toDate = null, int $numberOfItems = 200) {
+    public function getTransactions(string $accountNumber, string $fromDate, $toDate = null, int $numberOfItems = 200): array
+    {
 
         $payload = [
             'accountNumber' => $accountNumber,
@@ -85,10 +86,9 @@ class BankOneService
 
 
     protected function get(string $url, $params = null): array {
-        $url = $params
-            ? $url. '&' .http_build_query($params)
-            : $url;
+        $url = $params ? $url. '&' .http_build_query($params) : $url;
         $res = Http::get($url);
+        dump($res->json(), $res->body());
         return $this->response($res);
     }
 
