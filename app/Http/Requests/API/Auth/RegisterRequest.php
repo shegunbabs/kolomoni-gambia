@@ -29,7 +29,7 @@ class RegisterRequest extends FormRequest
             'email' => ['required', 'email:rfc,dns', 'unique:users'],
             'phone' => ['required', 'string', 'min:7', 'max:11', 'unique:users',],
             'tin' => ['required', 'unique:users', 'digits:11'],
-            'dob' => ['required'],
+            //'dob' => ['required'],
             'password' => ['required', 'confirmed', 'string', 'min:6'],
             'device_serial' => ['required'],
             'device_pin' => ['required', 'string', 'min:4', 'max:6'],

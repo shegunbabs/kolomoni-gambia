@@ -18,7 +18,7 @@ class CreateUserPipe
             'email' => Str::lower($data['email']),
             'phone' => $data['phone'],
             'tin' => $data['tin'],
-            'dob' => $data['dob'],
+            //'dob' => $data['dob'] ?? null,
             'status' => 1,
             'password' => bcrypt($data['password']),
             'email_verified_at' => now(),
@@ -35,7 +35,7 @@ class CreateUserPipe
 
         unset(
             $data['firstname'], $data['lastname'], $data['email'],
-            $data['phone'], $data['tin'], $data['dob'], $data['password']
+            $data['phone'], $data['tin'], $data['password']
         );
 
         return $next($data);

@@ -41,7 +41,7 @@ class PrepareRegistrationPipe
             "TransactionPermission" => 0,
             "AccountTier" => 1,
             'Email' => $data['email'],
-            'DateOfBirth' => $data['dob'],
+            'DateOfBirth' => "",
             'Gender' => 0,
             'Address' => "",
             'PhoneNo' => $data['phone'],
