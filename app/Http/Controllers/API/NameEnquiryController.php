@@ -18,10 +18,12 @@ class NameEnquiryController
         ]);
         $account = Account::query()->where('bankone_account_number', $request->account_number)->first();
 
-        $enquiry = BankOneFacade::doNameEnquiry($account->account_number);
-
-        $out['name'] = $enquiry['Name'];
-        $out['account_number'] = $request->account_number;
-        return ApiResponse::success('Account name retrieved', $out);
+        if ( $account ) {
+            $enquiry = BankOneFacade::doNameEnquiry($account->account_number);
+            $out['name'] = $enquiry['Name'];
+            $out['account_number'] = $request->account_number;
+            return ApiResponse::success('Account name retrieved', $out);
+        }
+        return ApiResponse::failed('Account not found');
     }
 }
