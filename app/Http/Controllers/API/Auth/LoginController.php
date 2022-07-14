@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Auth;
 
 
 use App\Helpers\ApiResponse;
+use App\Http\Resources\UserAccountResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -40,6 +41,7 @@ class LoginController
             $out['user'] = new UserResource($user);
             $out['token'] = $token;
             $out['fcm_token'] = $request->fcm_token;
+            $out['account'] = new UserAccountResource($user->account);
 
             return ApiResponse::success('Login successful', $out);
         }
