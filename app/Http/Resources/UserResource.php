@@ -21,7 +21,7 @@ class UserResource extends JsonResource
             'phone' => $this->phone,
             'tin' => $this->tin,
             'status' => 'ACTIVE',
-            'date_of_birth' => Carbon::make($this->dob)->format('d-m-Y'),
+            'date_of_birth' =>  $this->dob ? Carbon::make($this->dob)?->format('d-m-Y') : '',
             'account' => [
                 'account_number' => $this->account->bankone_account_number,
                 'available_balance' => $this->account->available_balance,
