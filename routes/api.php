@@ -24,7 +24,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::prefix('v1')->group(function() {
 
     Route::middleware('auth:sanctum')->group(function(){
-        Route::post('balance-enquiry', BalanceEnquiry::class);
+        //Route::post('balance-enquiry', BalanceEnquiry::class);
     });
 
     Route::post('register', RegisterController::class);
