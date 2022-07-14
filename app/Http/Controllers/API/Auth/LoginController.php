@@ -7,6 +7,7 @@ namespace App\Http\Controllers\API\Auth;
 use App\Helpers\ApiResponse;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -14,12 +15,13 @@ use Illuminate\Validation\ValidationException;
 class LoginController
 {
 
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): JsonResponse
     {
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
             'device_serial' => 'required',
+            'fcm_token' => 'required',
         ]);
 
         $user = User::query()->where('email', $request->email)->first();
@@ -30,16 +32,21 @@ class LoginController
             ]);
         }
 
-        if ( $user->devices()->where('serial', $request->device_serial)->first() ) {
+        if ( $device = $user->devices()->where('serial', $request->device_serial)->first() ) {
+            // update fcm_token
+            tap($device)->update(['fcm_token' => $request->fcm_token]);
+            // create the token
             $token = $user->createToken($request->device_serial)->plainTextToken;
             $out['user'] = new UserResource($user);
             $out['token'] = $token;
+            $out['fcm_token'] = $request->fcm_token;
+
             return ApiResponse::success('Login successful', $out);
         }
 
-        //new device
-        //send
-
+        // new device
+        // send email notification
+        //
         $out['device'] = ['This device needs to be registered'];
         return ApiResponse::failed('New device detected', $out, 'errors');
     }

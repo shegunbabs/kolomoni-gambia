@@ -37,6 +37,7 @@ class CreateBankOneAccountPipe
 
         $out['user'] = new UserResource($user);
         $out['token'] = $data['token'];
+        $out['fcm_token'] = $data['fcm_token'];
 
         return ApiResponse::success('Account created successfully', $out);
     }

@@ -33,6 +33,7 @@ class RegisterRequest extends FormRequest
             'password' => ['required', 'confirmed', 'string', 'min:6'],
             'device_serial' => ['required'],
             'device_pin' => ['required', 'string', 'min:4', 'max:6'],
+            'fcm_token' => ['required', 'string'],
         ];
     }
 }

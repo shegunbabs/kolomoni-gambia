@@ -11,7 +11,7 @@ use App\Services\Pipes\CreateUserPipe;
 use App\Services\Pipes\PrepareRegistrationPipe;
 use Illuminate\Pipeline\Pipeline;
 
-class RegisterRegisterController
+class RegisterController
 {
 
     public function __invoke(RegisterRequest $request)

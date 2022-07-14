@@ -23,8 +23,10 @@ class CreateUserPipe
             'password' => bcrypt($data['password']),
             'email_verified_at' => now(),
         ]);
+
         $user->devices()->create([
             'serial' => $data['device_serial'],
+            'fcm_token' => $data['fcm_token'],
             'pin' => encrypt($data['device_pin'])
         ]);
 
