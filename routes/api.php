@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\Auth\LoginController;
-use App\Http\Controllers\API\Auth\RegisterRegisterController;
+use App\Http\Controllers\API\Auth\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +21,12 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function() {
-    Route::post('register', RegisterRegisterController::class);
+
+    Route::middleware('auth:sanctum')->group(function(){
+        Route::post('balance-enquiry');
+    });
+
+    Route::post('register', RegisterController::class);
     Route::post('login', LoginController::class);
 });
+
