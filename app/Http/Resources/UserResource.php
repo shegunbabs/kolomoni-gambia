@@ -22,12 +22,6 @@ class UserResource extends JsonResource
             'tin' => $this->tin,
             'status' => 'ACTIVE',
             'date_of_birth' =>  $this->dob ? Carbon::make($this->dob)?->format('d-m-Y') : '',
-            'account' => [
-                'account_number' => $this->account->bankone_account_number,
-                'available_balance' => $this->account->available_balance,
-                'withdrawable_balance' => $this->account->withdrawable_balance,
-                'ledger_balance' => $this->account->ledger_balance,
-            ]
         ];
     }
 }

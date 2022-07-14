@@ -16,4 +16,22 @@ class AccountHelper
             substr(time(), -4)
         );
     }
+
+
+    public static function normalize(string $balance) {
+        if ( str_contains($balance, ',') ) {
+            return Str::remove(',', $balance) *100.00;
+        }
+        return $balance;
+    }
+
+
+    public static function AsyncAccountBalance() {
+
+    }
+
+
+    public static function SyncAccountBalance(...$balances) {
+        dd($balances);
+    }
 }

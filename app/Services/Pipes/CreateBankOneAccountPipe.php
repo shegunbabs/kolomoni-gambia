@@ -4,6 +4,7 @@
 namespace App\Services\Pipes;
 
 use App\Helpers\ApiResponse;
+use App\Http\Resources\UserAccountResource;
 use App\Http\Resources\UserResource;
 use App\Services\BankOne\BankOneFacade;
 use App\Services\BankOne\DTOs\CreateAccountResponse;
@@ -38,6 +39,7 @@ class CreateBankOneAccountPipe
         $out['user'] = new UserResource($user);
         $out['token'] = $data['token'];
         $out['fcm_token'] = $data['fcm_token'];
+        $out['account'] = new UserAccountResource($user->account);
 
         return ApiResponse::success('Account created successfully', $out);
     }
