@@ -123,6 +123,10 @@ class BankOneService
     }
 
 
+    /**
+     * @param array $payload array<accountNumber: string, narration: string>
+     * @return array
+     */
     public function closeAccount(array $payload): array
     {
         $url = $this->buildUrl(self::CLOSE_ACCOUNT);
