@@ -11,6 +11,6 @@ class OTPFacade extends Facade
 
     protected static function getFacadeAccessor()
     {
-        return 'OTP';
+        return 'OtpService';
     }
 }
