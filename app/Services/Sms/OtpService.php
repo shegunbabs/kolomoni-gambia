@@ -25,6 +25,16 @@ class OtpService
 
 
     private function getUserSecret(User $user): string {
-        return base64_encode($user->password);
+
+        if ( $user->otp_secret ) {
+            return $user->otp_secret;
+        }
+
+        $otp = TOTP::create();
+        $secret = $otp->getSecret();
+
+        $user->update(['otp_secret' => $secret]);
+
+        return $secret;
     }
 }
