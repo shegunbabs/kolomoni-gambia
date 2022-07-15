@@ -26,20 +26,20 @@ class Account extends Model
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     protected function availableBalance(): Attribute {
         return Attribute::make(
-            get: fn ($value) => $value/100.00
+            get: fn ($value) => number_format($value/100.00, 2)
         );
     }
 
     protected function ledgerBalance(): Attribute {
         return Attribute::make(
-            get: fn ($value) => $value/100.00
+            get: fn ($value) => number_format($value/100.00, 2)
         );
     }
 
 
     protected function withdrawableBalance(): Attribute {
         return Attribute::make(
-            get: fn ($value) => $value/100.00
+            get: fn ($value) => number_format($value/100.00, 2)
         );
     }
 
