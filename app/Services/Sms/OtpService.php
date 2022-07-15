@@ -25,6 +25,6 @@ class OtpService
 
 
     private function getUserSecret(User $user): string {
-        return $user->password;
+        return base64_encode($user->password);
     }
 }
