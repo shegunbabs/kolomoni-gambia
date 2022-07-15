@@ -19,7 +19,7 @@ class BalanceEnquiry
 
         $request->validate([
             'account_number' => 'required',
-            'email' => 'required|email'
+            //'email' => 'required|email'
         ]);
 
         $user = User::with('account')->where('email', $request->email)->first();
