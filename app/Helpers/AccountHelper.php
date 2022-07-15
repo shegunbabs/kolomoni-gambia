@@ -5,6 +5,7 @@ namespace App\Helpers;
 
 
 use Illuminate\Support\Str;
+use App\Models\User;
 
 class AccountHelper
 {
@@ -31,7 +32,21 @@ class AccountHelper
     }
 
 
-    public static function SyncAccountBalance(...$balances) {
-        dd($balances);
+    public static function SyncAccountBalance(User $user, $balances) {
+
+        $available_bal = static::normalize($balances['AvailableBalance']);
+        $ledger_bal = static::normalize($balances['LedgerBalance']);
+        $withdrawable_bal = static::normalize($balances['WithdrawableBalance']);
+
+        $account = $user->account;
+
+        if ( $withdrawable_bal !== $account->withdrawable_balance ) {
+            tap($account)->update([
+                'available_balance' => $available_bal,
+                'ledger_balance' => $ledger_bal,
+                'withdrawable_balance' => $withdrawable_bal,
+            ]);
+        }
+
     }
 }

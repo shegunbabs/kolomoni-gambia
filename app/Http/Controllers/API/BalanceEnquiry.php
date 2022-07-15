@@ -6,6 +6,7 @@ namespace App\Http\Controllers\API;
 
 use App\Helpers\AccountHelper;
 use App\Helpers\ApiResponse;
+use App\Http\Resources\UserAccountResource;
 use App\Models\User;
 use App\Services\BankOne\BankOneFacade;
 use Illuminate\Http\Request;
@@ -34,19 +35,9 @@ class BalanceEnquiry
         $response = BankOneFacade::getAccountByAccountNumber($user->account->account_number);
 
         if (! empty($response['AvailableBalance']) ) {
-            //get account balance
-            $available_bal = $response['AvailableBalance'];
-            $ledger_bal = $response['LedgerBalance'];
-            $withdrawable_bal = $response['WithdrawableBalance'];
-
-
-            //return synced account balance
-            //AsyncAccountBalance($user->account->account_number);
-
-            AccountHelper::SyncAccountBalance($response);
-
+            AccountHelper::SyncAccountBalance($user, $response);
         }
-
-
+        $out['account'] = new UserAccountResource($user->account);
+        return ApiResponse::success('Account balance retrieved', $out);
     }
 }

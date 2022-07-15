@@ -10,7 +10,7 @@ use OTPHP\TOTP;
 class OtpService
 {
 
-    public function generateOtp(User$user): string {
+    public function generateOtp(User $user): string {
         $secret = $this->getUserSecret($user);
         $timestamp = time();
         return TOTP::create($secret)->at($timestamp);
