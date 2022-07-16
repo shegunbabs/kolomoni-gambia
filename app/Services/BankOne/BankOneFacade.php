@@ -11,10 +11,11 @@ use Illuminate\Support\Facades\Facade;
  * @package App\Services\BankOne
  * @method static getAccountByAccountNumber(string $accountNumber)
  * @method static getAccountByCustomerId(string $customerID)
- * @method static balanceEnquiry(string $customerID)
+ * @method static balanceEnquiry(string $accountNumber)
  * @method static doNameEnquiry(string $accountNumber)
  * @method static getTransactions(string $accountNumber, string $fromDate, $toDate = null, int $numberOfItems = 200)
  * @method static createAccount(array $payload)
+ * @method static doIntraAccountTransfer(array $payload)
  */
 
 class BankOneFacade extends Facade

@@ -54,8 +54,12 @@ class BankOneService
     }
 
 
-    public function balanceEnquiry(string $customerID): array {
-        return $this->getAccountByCustomerId($customerID);
+    /**
+     * @param string $accountNumber
+     * @return array
+     */
+    public function balanceEnquiry(string $accountNumber): array {
+        return $this->getAccountByAccountNumber($accountNumber);
     }
 
 
@@ -101,9 +105,9 @@ class BankOneService
         return $response->ok() && $response->json()
             ? $response->json()
             : [
-                'status' => $response->status(),
-                'headers' => $response->headers(),
-                'body' => $response->body(),
+                'status' => 'failed',
+                'http_status' => $response->status(),
+                'message' => $response->body(),
             ];
     }
 
