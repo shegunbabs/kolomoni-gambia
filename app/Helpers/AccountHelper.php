@@ -19,6 +19,14 @@ class AccountHelper
     }
 
 
+    public static function intraTransferRef(): string {
+        return sprintf(
+            '%s|%s|%s',
+            'TT', Str::upper(Str::random(6)), substr(time(), -4)
+        );
+    }
+
+
     public static function normalize(string $balance) {
         if ( str_contains($balance, ',') ) {
             return Str::remove(',', $balance) *100.00;
