@@ -22,7 +22,7 @@ class AccountHelper
     public static function intraTransferRef(): string {
         return sprintf(
             '%s|%s|%s',
-            'TT', Str::upper(Str::random(6)), substr(time(), -4)
+            'TT', Str::upper(Str::random(4)), substr(time(), -4)
         );
     }
 
