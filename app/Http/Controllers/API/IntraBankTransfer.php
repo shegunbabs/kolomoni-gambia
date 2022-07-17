@@ -40,6 +40,16 @@ class IntraBankTransfer
              if (! $response->IsSuccessful ) {
                  return ApiResponse::failed($response->ResponseMessage);
              }
+
+             if ( $response->ResponseCode === "00" ) {
+                 return ApiResponse::success('Bank transfer successful.');
+             }
+
+             if ( Str::lower($response->ResponseCode) === 'x06' ) {
+                 //requery here
+                 return ApiResponse::pending('Bank transfer pending.');
+             }
+
         } catch (DataTransferObjectError $e) {
             ApiResponse::failed($e->getMessage());
         }

@@ -28,4 +28,13 @@ class ApiResponse
 
         return response()->json($response_array, $statusCode);
     }
+
+
+    public static function pending($message = ''): JsonResponse
+    {
+        return response()->json([
+            'status' => 'pending',
+            'message' => $message
+        ]);
+    }
 }
