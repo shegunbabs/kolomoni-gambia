@@ -38,19 +38,7 @@ class IntraBankTransfer
         try {
             $response = new IntraBankTransferResponse($response);
              if (! $response->IsSuccessful ) {
-                 return ApiResponse::failed('Bank transfer failed. Please try again.');
-             }
-
-             if ( $response->ResponseCode === "00" ) {
-                 //Async both account balances here
-                 AccountHelper::AsyncAccountBalance($validated['from_account']);
-                 AccountHelper::AsyncAccountBalance($validated['to_account']);
-                 return ApiResponse::success('Bank Transfer successful');
-             }
-
-             if ( $response->ResponseCode === "X06") {
-                 //run TSQ in another 60secs
-
+                 return ApiResponse::failed($response->ResponseMessage);
              }
         } catch (DataTransferObjectError $e) {
 
