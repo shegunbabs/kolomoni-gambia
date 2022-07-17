@@ -41,7 +41,7 @@ class IntraBankTransfer
                  return ApiResponse::failed($response->ResponseMessage);
              }
         } catch (DataTransferObjectError $e) {
-
+            ApiResponse::failed($e->getMessage());
         }
 
          return ApiResponse::failed('Bank transfer failed. Please try again');
