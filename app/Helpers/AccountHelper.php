@@ -4,8 +4,9 @@
 namespace App\Helpers;
 
 
+use App\Models\Account;
+use App\Services\BankOne\BankOneFacade;
 use Illuminate\Support\Str;
-use App\Models\User;
 
 class AccountHelper
 {
@@ -35,26 +36,36 @@ class AccountHelper
     }
 
 
-    public static function AsyncAccountBalance() {
+    public static function AsyncAccountBalance($accountNumber): void
+    {
+        $accountModel = Account::query()->where('bankone_account_number', $accountNumber)->first();
+        $accountNumber = $accountModel->account_number;
 
+        dispatch( static function() use ($accountNumber, $accountModel) {
+            $response = BankOneFacade::balanceEnquiry($accountNumber);
+            if (!$response['AvailableBalance']) {
+                static::SyncAccountBalance($accountModel, $response);
+            }
+        });
     }
 
 
-    public static function SyncAccountBalance(User $user, $balances) {
+    /**
+     * @param Account $accountModel
+     * @param array $balances
+     */
+    public static function SyncAccountBalance(Account $accountModel, array $balances): void {
 
         $available_bal = static::normalize($balances['AvailableBalance']);
         $ledger_bal = static::normalize($balances['LedgerBalance']);
         $withdrawable_bal = static::normalize($balances['WithdrawableBalance']);
 
-        $account = $user->account;
-
-        if ( $available_bal !== $account->available_balance ) {
-            tap($account)->update([
+        if ( $available_bal !== $accountModel->available_balance ) {
+            tap($accountModel)->update([
                 'available_balance' => $available_bal,
                 'ledger_balance' => $ledger_bal,
                 'withdrawable_balance' => $withdrawable_bal,
             ]);
         }
-
     }
 }

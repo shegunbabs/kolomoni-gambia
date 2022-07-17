@@ -27,6 +27,7 @@ Route::prefix('v1')->group(function() {
     Route::middleware('auth:sanctum')->group(function(){
         Route::post('balance-enquiry', BalanceEnquiry::class);
         Route::post('name-enquiry', NameEnquiryController::class);
+        //Route::post();
     });
 
     Route::post('register', RegisterController::class);
