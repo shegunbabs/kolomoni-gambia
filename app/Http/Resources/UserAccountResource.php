@@ -15,12 +15,12 @@ class UserAccountResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'account_name' => $this->user->fullname,
             'account_number' => $this->bankone_account_number,
             'available_balance' => $this->available_balance,
             'withdrawable_balance' => $this->withdrawable_balance,
             'ledger_balance' => $this->ledger_balance,
             'account_tier' => $this->account_tier,
-            'account_name' => $this->user->fullname,
         ];
     }
 }
