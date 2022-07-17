@@ -37,6 +37,7 @@ class BalanceEnquiry
         if (! empty($response['AvailableBalance']) ) {
             AccountHelper::SyncAccountBalance($user->account, $response);
         }
+
         $out['account'] = new UserAccountResource($user->account);
         return ApiResponse::success('Account balance retrieved', $out);
     }
