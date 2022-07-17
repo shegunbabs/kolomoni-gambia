@@ -42,6 +42,8 @@ class IntraBankTransfer
              }
 
              if ( $response->ResponseCode === "00" ) {
+                 AccountHelper::AsyncAccountBalance($validated['from_account']);
+                 AccountHelper::AsyncAccountBalance($validated['to_account']);
                  return ApiResponse::success('Bank transfer successful.');
              }
 
