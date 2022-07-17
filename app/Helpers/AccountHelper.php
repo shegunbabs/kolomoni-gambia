@@ -62,7 +62,7 @@ class AccountHelper
         $ledger_bal = static::normalize($balances['LedgerBalance']);
         $withdrawable_bal = static::normalize($balances['WithdrawableBalance']);
 
-        if ( $available_bal !== $accountModel->available_balance ) {
+        if ( (int) $available_bal !== (int) $accountModel->available_balance ) {
             tap($accountModel)->update([
                 'available_balance' => $available_bal,
                 'ledger_balance' => $ledger_bal,
