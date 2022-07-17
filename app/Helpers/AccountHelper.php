@@ -44,7 +44,7 @@ class AccountHelper
             $accountNumber = $accountModel?->account_number;
             if ( $accountModel && $accountNumber ) {
                 $response = BankOneFacade::balanceEnquiry($accountNumber);
-                if (!$response['AvailableBalance']) {
+                if (!empty($response['AvailableBalance'])) {
                     static::SyncAccountBalance($accountModel, $response);
                 }
             }
