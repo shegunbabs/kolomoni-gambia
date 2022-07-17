@@ -29,9 +29,9 @@ class AccountHelper
 
     public static function normalize(string $balance) {
         if ( str_contains($balance, ',') ) {
-            return Str::remove(',', $balance) *100.00;
+            return Str::remove(',', $balance) * 100.00;
         }
-        return $balance;
+        return $balance * 100.00;
     }
 
 
@@ -48,7 +48,7 @@ class AccountHelper
 
         $account = $user->account;
 
-        if ( $withdrawable_bal !== $account->withdrawable_balance ) {
+        if ( $available_bal !== $account->available_balance ) {
             tap($account)->update([
                 'available_balance' => $available_bal,
                 'ledger_balance' => $ledger_bal,
