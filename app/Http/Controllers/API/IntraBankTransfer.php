@@ -12,6 +12,7 @@ use App\Models\Account;
 use App\Services\BankOne\BankOneFacade;
 use App\Services\BankOne\DTOs\IntraBankTransferResponse;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Str;
 use Spatie\DataTransferObject\DataTransferObjectError;
 
 class IntraBankTransfer
@@ -29,7 +30,7 @@ class IntraBankTransfer
             'FromAccountNumber' => $validated['from_account'],
             'ToAccountNumber' => $validated['to_account'],
             'RetrievalReference' => AccountHelper::intraTransferRef(),
-            'Narration' => $narration,
+            'Narration' => Str::limit($validated['narration'] ?? $narration, 100, ''),
             'AuthenticationKey' => config('services.bank_one.token'),
         ];
 
