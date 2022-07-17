@@ -20,6 +20,7 @@ class UserAccountResource extends JsonResource
             'withdrawable_balance' => $this->withdrawable_balance,
             'ledger_balance' => $this->ledger_balance,
             'account_tier' => $this->account_tier,
+            'account_name' => $this->user->fullname,
         ];
     }
 }

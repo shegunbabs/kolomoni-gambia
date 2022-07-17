@@ -38,7 +38,6 @@ class BalanceEnquiry
             AccountHelper::SyncAccountBalance($user->account, $response);
         }
         $out['account'] = new UserAccountResource($user->account);
-        $out['account_name'] = $user->fullname;
         return ApiResponse::success('Account balance retrieved', $out);
     }
 }
