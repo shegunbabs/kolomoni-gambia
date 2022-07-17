@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\BalanceEnquiry;
+use App\Http\Controllers\API\IntraBankTransfer;
 use App\Http\Controllers\API\NameEnquiryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,7 +28,7 @@ Route::prefix('v1')->group(function() {
     Route::middleware('auth:sanctum')->group(function(){
         Route::post('balance-enquiry', BalanceEnquiry::class);
         Route::post('name-enquiry', NameEnquiryController::class);
-        //Route::post();
+        Route::post('intra-transfer', IntraBankTransfer::class);
     });
 
     Route::post('register', RegisterController::class);
