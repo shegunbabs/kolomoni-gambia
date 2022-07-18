@@ -12,8 +12,8 @@ class OtpService
 
     public function generateOtp(User $user): string {
         $secret = $this->getUserSecret($user);
-        $timestamp = time() - 60;
-        return TOTP::create($secret)->at($timestamp);
+        $timestamp = time() ;
+        return TOTP::create($secret, 60)->at($timestamp);
     }
 
 
