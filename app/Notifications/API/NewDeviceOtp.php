@@ -51,7 +51,7 @@ class NewDeviceOtp extends Notification
     {
         return (new MailMessage)
             ->subject('OTP to register new device')
-            ->greeting('Hello '. $this->user->fullname)
+            ->greeting("Hello {$this->user->fullname},")
                     ->line('Use this OTP: '. $this->otp)
                     ->line('Thank you for using Kolomoni!');
     }
