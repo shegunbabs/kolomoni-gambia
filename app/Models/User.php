@@ -51,7 +51,7 @@ class User extends Authenticatable
 
     public function fullname(): Attribute {
         return Attribute::make(
-            get: fn() => "{$this->lastname} {$this->firstname}",
+            get: fn() => ucwords("{$this->lastname} {$this->firstname}"),
         );
     }
 

@@ -38,7 +38,6 @@ class AccountHelper
 
     public static function AsyncAccountBalance($accountNumber): void
     {
-
         dispatch( static function() use ($accountNumber) {
             $accountModel = Account::query()->where('bankone_account_number', $accountNumber)->first();
             $accountNumber = $accountModel?->account_number;

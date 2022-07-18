@@ -8,6 +8,8 @@ use App\Helpers\ApiResponse;
 use App\Http\Resources\UserAccountResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Notifications\API\NewDeviceOtp;
+use App\Services\Sms\OTPFacade;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -47,9 +49,9 @@ class LoginController
 
         // new device
         // send email notification
-        //
+        $otp = OTPFacade::generateOtp($user);
+        $user->notify(new NewDeviceOtp($otp, $user));
         $url = route('authorize.new-device', ['device_serial' => $request->device_serial, 'user_id' => $user->id]);
-
         $out['event_type'] = 'This device needs to be registered';
         $out['event_url'] = $url;
         return ApiResponse::success('New device detected', $out, 'data');

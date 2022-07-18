@@ -30,10 +30,10 @@ Route::prefix('v1')->group(function() {
         Route::post('balance-enquiry', BalanceEnquiry::class);
         Route::post('name-enquiry', NameEnquiryController::class);
         Route::post('intra-transfer', IntraBankTransfer::class);
-        Route::post('authorize/{device_serial}/new-device/{user_id}', NewDeviceController::class)->name('authorize.new-device');
     });
 
     Route::post('register', RegisterController::class);
     Route::post('login', LoginController::class);
+    Route::post('authorize/{device_serial}/new-device/{user_id}', NewDeviceController::class)->name('authorize.new-device');
 });
 
