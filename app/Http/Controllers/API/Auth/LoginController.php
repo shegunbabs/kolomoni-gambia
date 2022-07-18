@@ -42,14 +42,16 @@ class LoginController
             $out['token'] = $token;
             $out['fcm_token'] = $request->fcm_token;
             $out['account'] = new UserAccountResource($user->account);
-
             return ApiResponse::success('Login successful', $out);
         }
 
         // new device
         // send email notification
         //
-        $out['device'] = ['This device needs to be registered'];
-        return ApiResponse::failed('New device detected', $out, 'errors');
+        $url = route('authorize.new-device', ['device_serial' => $request->device_serial, 'user_id' => $user->id]);
+
+        $out['event_type'] = 'This device needs to be registered';
+        $out['event_url'] = $url;
+        return ApiResponse::success('New device detected', $out, 'data');
     }
 }
