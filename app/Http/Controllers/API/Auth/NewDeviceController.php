@@ -27,6 +27,8 @@ class NewDeviceController
         $user = User::find($uid);
         $res = OTPFacade::verifyOtp($user, $request->otp);
 
+        dump($device, $uid, $res);
+
         if (!$res) {
             return ApiResponse::failed('Invalid token supplied');
         }
